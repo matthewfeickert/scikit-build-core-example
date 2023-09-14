@@ -1,4 +1,55 @@
-**Local install works**
+# Problems with scikit-build-core dynamic versioning and non-top level package structure
+
+## Summary of problem
+
+I have a problem when packaging a `scikit-build-core` based project that uses version control for dynamic versioning (here using a similar example package as provided in the https://learn.scientific-python.org/development/guides/packaging-compiled/ examples)
+
+The repository directory structure (intentionally using a subdirectory to provide an example) is
+
+```console
+$ tree .
+.
+├── README.md
+└── subdir
+    ├── CMakeLists.txt
+    ├── pyproject.toml
+    ├── README.md
+    └── src
+        ├── basic_math.cpp
+        └── example_pkg
+            └── __init__.py
+
+3 directories, 6 files
+```
+
+If we navigate to the package directory
+
+```
+cd subdir
+```
+
+then with the current `pyproject.toml` structure to use version control for dynamic versioning (as suggested by `cookie`)
+
+```toml
+...
+
+[tool.scikit-build]
+minimum-version = "0.4"
+build-dir = "build/{wheel_tag}"
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.include = ["src/example_pkg/_version.py"]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+# Need to give root as we aren't at the same level as the git repo
+root = ".."
+# Need to provide path relative to root
+write_to = "subdir/src/example_pkg/_version.py"
+
+...
+```
+
+**a local install works**
 
 ```console
 $ rm -rf src/example_pkg/_version.py && python -m pip install --upgrade .
@@ -22,10 +73,10 @@ __version__ = version = '0.1.dev0'
 __version_tuple__ = version_tuple = (0, 1, 'dev0')
 ```
 
-**Wheel build fails**
+**but building a wheel fails**
 
 ```console
-$ rm -rf src/example_pkg/_version.py && rm -rf dist && python -m build .
+$ rm -rf src/example_pkg/_version.py && rm -rf build && rm -rf dist && python -m build .
 * Creating venv isolated environment...
 * Installing packages in isolated environment... (pybind11, scikit-build-core)
 * Getting build dependencies for sdist...
@@ -68,3 +119,7 @@ FileNotFoundError: [Errno 2] No such file or directory: '../subdir/src/example_p
 
 ERROR Backend subprocess exited when trying to invoke build_wheel
 ```
+
+## Aside
+
+`setuptool_scm` currently recommends using `relative_to` and `version_file` instead of `root` and `write_to` as these later options are now [viewed as deprecated](https://github.com/pypa/setuptools_scm/blob/5b1c77b71ebf66413f3ecfea2222b5b3e0a26bcd/docs/config.md?plain=1#L36), however trying to use `relative_to` and `version_file` fails with `scikit-build-core` as `version_file` is not recognized.
