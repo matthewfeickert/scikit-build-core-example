@@ -52,7 +52,7 @@ write_to = "subdir/src/example_pkg/_version.py"
 **a local install works**
 
 ```console
-$ rm -rf src/example_pkg/_version.py && python -m pip install --upgrade .
+$ rm -rf src/example_pkg/_version.py && rm -rf build && python -m pip install --upgrade .
 Processing /home/feickert/Code/debug/sckit-build-core-example/subdir
   Installing build dependencies ... done
   Getting requirements to build wheel ... done
