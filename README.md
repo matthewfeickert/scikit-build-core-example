@@ -1,7 +1,7 @@
 **Local install works**
 
 ```console
-$ python -m pip install --upgrade .
+$ rm -rf src/example_pkg/_version.py && python -m pip install --upgrade .
 Processing /home/feickert/Code/debug/sckit-build-core-example/subdir
   Installing build dependencies ... done
   Getting requirements to build wheel ... done
@@ -25,7 +25,7 @@ __version_tuple__ = version_tuple = (0, 1, 'dev0')
 **Wheel build fails**
 
 ```console
-$ rm -rf src/example_pkr/_version.py && rm -rf dist && python -m build .
+$ rm -rf src/example_pkg/_version.py && rm -rf dist && python -m build .
 * Creating venv isolated environment...
 * Installing packages in isolated environment... (pybind11, scikit-build-core)
 * Getting build dependencies for sdist...
