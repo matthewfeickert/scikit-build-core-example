@@ -124,6 +124,8 @@ FileNotFoundError: [Errno 2] No such file or directory: '../subdir/src/example_p
 ERROR Backend subprocess exited when trying to invoke build_wheel
 ```
 
+How should the relative directory information be provided such that both a local install and an isolated build work correctly?
+
 ## Aside
 
 `setuptool_scm` currently recommends using `relative_to` and `version_file` instead of `root` and `write_to` as these later options are now [viewed as deprecated](https://github.com/pypa/setuptools_scm/blob/5b1c77b71ebf66413f3ecfea2222b5b3e0a26bcd/docs/config.md?plain=1#L36), however trying to use `relative_to` and `version_file` fails with `scikit-build-core` as `version_file` is not recognized.
