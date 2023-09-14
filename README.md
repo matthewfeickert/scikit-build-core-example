@@ -49,7 +49,7 @@ write_to = "subdir/src/example_pkg/_version.py"
 ...
 ```
 
-**a local install works**
+### a local install works
 
 ```console
 $ rm -rf src/example_pkg/_version.py && rm -rf build && python -m pip install --upgrade .
@@ -73,7 +73,7 @@ __version__ = version = '0.1.dev0'
 __version_tuple__ = version_tuple = (0, 1, 'dev0')
 ```
 
-**but building a wheel fails**
+### but building a wheel fails
 
 ```console
 $ rm -rf src/example_pkg/_version.py && rm -rf build && rm -rf dist && python -m build .
