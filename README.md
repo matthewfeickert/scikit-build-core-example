@@ -125,6 +125,35 @@ ERROR Backend subprocess exited when trying to invoke build_wheel
 ```
 
 How should the relative directory information be provided such that both a local install and an isolated build work correctly?
+I understand that the sdist had a different directory structure than the repository
+
+```console
+$ tar -xzvf dist/example-pkg*.tar.gz
+$ tree example-pkg-*/
+example-pkg-0.1.dev9/
+├── CMakeLists.txt
+├── PKG-INFO
+├── pyproject.toml
+├── README.md
+└── src
+    ├── basic_math.cpp
+    └── example_pkg
+        ├── __init__.py
+        └── _version.py
+
+2 directories, 7 files
+```
+
+and so now the `setuptools_scm` relative path information is wrong
+
+```console
+$ grep root example-pkg-0.1.dev9/pyproject.toml
+# Need to give root as we aren't at the same level as the git repo
+root = ".."
+# Need to provide path relative to root
+```
+
+but I don't know how to correct for this.
 
 ## Aside
 
