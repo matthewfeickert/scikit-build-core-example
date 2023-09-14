@@ -1,5 +1,9 @@
 # Problems with scikit-build-core dynamic versioning and non-top level package structure
 
+## GitHub Issue
+
+This problem is https://github.com/scikit-build/scikit-build-core/issues/495
+
 ## Summary of problem
 
 I have a problem when packaging a `scikit-build-core` based project that uses version control for dynamic versioning (here using a similar example package as provided in the https://learn.scientific-python.org/development/guides/packaging-compiled/ examples)
