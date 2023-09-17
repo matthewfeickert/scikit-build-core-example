@@ -39,6 +39,12 @@ jobs:
     - name: List installed Python packages
       run: python -m pip list
 
+    - name: Cleanup to have dist build be as clean as possible
+      run: |
+        cd subdir
+        rm -rf src/example_pkg/_version.py
+        rm -rf build
+
     - name: Build a sdist and wheel
       run: |
         cd subdir
@@ -52,9 +58,9 @@ jobs:
     - name: List contents of sdist
       run: |
         cd subdir
-        python -m tarfile --list dist/pyhf-*.tar.gz
+        python -m tarfile --list dist/example-pkg-*.tar.gz
 
     - name: List contents of wheel
       run: |
         cd subdir
-        python -m zipfile --list dist/pyhf-*.whl
+        python -m zipfile --list dist/example_pkg-*.whl
