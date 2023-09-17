@@ -23,7 +23,10 @@ jobs:
         python-version: ['3.x']
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -45,8 +48,8 @@ jobs:
         rm -rf src/example_pkg/_version.py
         rm -rf build
 
+      # c.f. https://github.com/scikit-build/scikit-build-core/issues/495
     - name: Build a sdist and wheel
-      continue-on-error: true
       run: |
         cd subdir
         pipx run build .
