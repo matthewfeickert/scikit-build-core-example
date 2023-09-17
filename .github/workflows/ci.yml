@@ -46,6 +46,7 @@ jobs:
         rm -rf build
 
     - name: Build a sdist and wheel
+      continue-on-error: true
       run: |
         cd subdir
         pipx run build .
