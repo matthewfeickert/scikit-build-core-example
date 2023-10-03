@@ -52,7 +52,9 @@ jobs:
     - name: Build a sdist and wheel
       run: |
         cd subdir
-        pipx run build .
+        # pipx run build .
+        python -m pip install --upgrade build
+        python -m build .
 
     - name: Verify the distribution
       run: |
