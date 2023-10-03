@@ -37,11 +37,3 @@ path = "example_pkg/_version.py"
 template = '''
 version = "${version}"
 '''
-
-# https://github.com/pypa/setuptools_scm/blob/5b1c77b71ebf66413f3ecfea2222b5b3e0a26bcd/docs/config.md?plain=1#L30
-# recommends modern versions like:
-#
-# relative_to = ".."
-# version_file = "subdir/src/example_pkg/_version.py"
-#
-# but doesn't seem to have succes
