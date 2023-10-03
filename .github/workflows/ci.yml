@@ -62,7 +62,7 @@ jobs:
     - name: List contents of sdist
       run: |
         cd subdir
-        python -m tarfile --list dist/example-pkg-*.tar.gz
+        python -m tarfile --list dist/example_pkg-*.tar.gz
 
     - name: List contents of wheel
       run: |
