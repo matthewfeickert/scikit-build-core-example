@@ -1,7 +1,7 @@
 [build-system]
 requires = [
-  "scikit-build-core",
-  "pybind11",
+  "scikit-build-core>=0.5.0",
+  "pybind11>=2.10.0"
   ]
 build-backend = "scikit_build_core.build"
 
@@ -24,22 +24,16 @@ dependencies = [
 ]
 
 [tool.scikit-build]
-minimum-version = "0.4"
-build-dir = "build/{wheel_tag}"
 metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
-sdist.include = ["src/example_pkg/_version.py"]
 
 [tool.setuptools_scm]
+# Ignore the commit hash in version
 local_scheme = "no-local-version"
 # Need to give root as we aren't at the same level as the git repo
 root = ".."
-# Need to provide path relative to root
-write_to = "subdir/src/example_pkg/_version.py"
 
-# https://github.com/pypa/setuptools_scm/blob/5b1c77b71ebf66413f3ecfea2222b5b3e0a26bcd/docs/config.md?plain=1#L30
-# recommends modern versions like:
-#
-# relative_to = ".."
-# version_file = "subdir/src/example_pkg/_version.py"
-#
-# but doesn't seem to have succes
+[[tool.scikit-build.generate]]
+path = "example_pkg/_version.py"
+template = '''
+version = "${version}"
+'''

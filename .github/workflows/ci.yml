@@ -52,7 +52,8 @@ jobs:
     - name: Build a sdist and wheel
       run: |
         cd subdir
-        pipx run build .
+        python -m pip install --upgrade build
+        python -m build .
 
     - name: Verify the distribution
       run: |
@@ -62,7 +63,7 @@ jobs:
     - name: List contents of sdist
       run: |
         cd subdir
-        python -m tarfile --list dist/example-pkg-*.tar.gz
+        python -m tarfile --list dist/example_pkg-*.tar.gz
 
     - name: List contents of wheel
       run: |
