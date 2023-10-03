@@ -27,8 +27,8 @@ dependencies = [
 [tool.scikit-build]
 metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
 
-# required by setuptools-scm even if it's empty
 [tool.setuptools_scm]
+# Need to give root as we aren't at the same level as the git repo
 root = ".."
 
 [[tool.scikit-build.generate]]
