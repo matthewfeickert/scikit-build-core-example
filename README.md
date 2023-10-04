@@ -4,6 +4,28 @@
 
 This problem is https://github.com/scikit-build/scikit-build-core/issues/495
 
+## [Fix to problem](https://github.com/scikit-build/scikit-build-core/issues/495#issuecomment-1745857002)
+
+The fix (seen in https://github.com/matthewfeickert/scikit-build-core-example/pull/2) was to use `tool.scikit-build.generate` to write out the version information file along with using `setuptools_scm`'s `root` option to define the path to the top level of the Git repository.
+
+```toml
+...
+[tool.scikit-build]
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+
+[tool.setuptools_scm]
+# Need to give root as we aren't at the same level as the git repo
+root = ".."
+
+[[tool.scikit-build.generate]]
+path = "example_pkg/_version.py"
+template = '''
+version = "${version}"
+'''
+```
+
+---
+
 ## Summary of problem
 
 I have a problem when packaging a `scikit-build-core` based project that uses version control for dynamic versioning (here using a similar example package as provided in the https://learn.scientific-python.org/development/guides/packaging-compiled/ examples)
